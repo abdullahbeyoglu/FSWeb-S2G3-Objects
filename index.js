@@ -15,9 +15,16 @@ const serpmeKahvalti = {isim: "Serpme Kahvaltı", fiyat: 16, kategori:"Kahvaltı
 */
 
 
-function MenuElemaniOlustur(/*Kodlar buraya*/){
-	/*Kodlar buraya*/
+function MenuElemaniOlustur(isim, fiyat, kategori){
+	
+	const liste = {
+		'isim': isim,
+		'fiyat':fiyat,
+		'kategori':kategori
+	}
+return liste
 }
+console.log(MenuElemaniOlustur('Cheeseburger', 8, 'Burgerler'));
 
 
 
@@ -31,6 +38,10 @@ function MenuElemaniOlustur(/*Kodlar buraya*/){
 	Örnek: MenuElemaniOlustur("Karışık Pizza",5,"Pizzalar") şunu döndürür: {isim:"Karışık Pizza",fiyat:5,kategori:"Pizzalar"}
 */
 
+
+console.log(MenuElemaniOlustur("Karışık Pizza",5,"Pizzalar"));
+console.log(MenuElemaniOlustur("Tavuk Şiş",93,"Izgaralar"));
+console.log(MenuElemaniOlustur("Tavada Balık",80,"Deniz Ürünleri"));
 
 
 /* Görev 2: 
@@ -50,10 +61,17 @@ const burger = {
 	isim: "Burger", 
 	fiyat: 18, 
 	kategori: "Öğle Yemeği", 
-
+	indirim: function(musteri) {
+	if (musteri == "öğretmen" || musteri == "öğrenci") {
+		var sonFiyat = this.fiyat*0.75;
+	}
+	else if (musteri == "diğer") {
+		var sonFiyat = this.fiyat*0.90;
+	}
+	return sonFiyat;
 }
-
-
+}
+console.log(burger.indirim("öğretmen"));
 
 ///////////////Değerlendirmeler (MVP)///////////////////
 const degerlendirmeler = [
@@ -72,6 +90,13 @@ const degerlendirmeler = [
 	1. Sadece Ahmet'in geribildirimini konsolda görüntüleyin - fonksiyona gerek yok
 */
 
+degerlendirmeler.filter((item) => {
+	if (item.isim == "Ahmet") {
+		console.log(item.geribildirim);
+	}
+});
+
+// console.log(degerlendirmeler[5].geribildirim);
 
 
 /*  Görev 4 (ototest yok):  
@@ -80,7 +105,12 @@ const degerlendirmeler = [
 	2. degerlendirmeler dizisini konsolda görüntüleyerek çalışmanızı kontrol edin
 */
 
-
+degerlendirmeler.filter((item) => {
+	if (item.isim == "Reyna") {
+		item.geribildirim = "bu mekan bir harika dostum, yine de garsonun gülümsememesinden puan kırdım";
+	}
+})
+console.log(degerlendirmeler);
 
 /*  Görev 5: 
 	isim, puan, geribildirim'i içeren bir değerlendirme nesnesi oluşturup, yeni değerlendirmeyi mevcut dizinin(array) sonuna ekleyip sonuç dizisini döndüren bir fonksiyon tanımlayın. 
@@ -94,10 +124,17 @@ const degerlendirmeler = [
 */
 
 
-function DegerledirmeEkle(/*Kodlar buraya */){
-	/*Kodlar buraya */
+function DegerledirmeEkle(data, isim, puan, geribildirim){
 	
+	const degerlendirme = {
+		isim: isim,
+		puan: puan,
+		geribildirim: geribildirim
+	};
+	data.push(degerlendirme);
+	return data;
 }
+console.log(DegerledirmeEkle(degerlendirmeler, "Ali", 9, "Mükemmel bir yer"));
 
 
 
@@ -112,10 +149,12 @@ function DegerledirmeEkle(/*Kodlar buraya */){
 */
 
 
-function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
-	/*Kodlar buraya*/
-
+function AnahtardanDegerlendirmeAl(data, key) {
+	
+	let sonuc = `${data[key]["isim"]} isimli kişi ${data[key]["puan"]} puan verdi ve şunları yazdı: ${data[key]["geribildirim"]}`
+	return sonuc;
 }
+console.log(AnahtardanDegerlendirmeAl(degerlendirmeler,0));
 
 
 
@@ -132,10 +171,14 @@ function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
 */
 
 
-function SonDegerlendirmeyiAl(/*Kodlar buraya*/) {
-	/*Kodlar buraya*/
-} 
-
+function SonDegerlendirmeyiAl(data) {
+	
+	let son = `${data[data.length-1].isim} isimli kişi ${data[data.length-1].puan} puan verdi ve şunları yazdı: ${data[data.length-1].geribildirim}`;
+	return son;
+	
+	} 
+	
+	console.log(SonDegerlendirmeyiAl(degerlendirmeler));
 
 
 /////////////// BONUS  GÖRVLER////////////////////
